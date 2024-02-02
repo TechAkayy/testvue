@@ -1,6 +1,6 @@
 const routes = [
   {
-    path: "/:jobid",
+    path: "/:jobid?",
     component: () => import("layouts/MainLayout.vue"),
 
     children: [

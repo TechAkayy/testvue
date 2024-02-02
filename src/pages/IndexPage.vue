@@ -17,7 +17,7 @@ watch(
   }
 );
 
-const jobid = +useRoute().params.jobid;
+const jobid = +useRoute().params.jobid || 10;
 console.log(jobid);
 const rooms = ref([]);
 
