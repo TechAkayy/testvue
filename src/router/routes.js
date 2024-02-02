@@ -3,13 +3,13 @@ const routes = [
     path: "/:jobid",
     component: () => import("layouts/MainLayout.vue"),
 
-    // children: [
-    //   {
-    //     path: "",
-    //     component: () => import("pages/IndexPage.vue"),
-    //     props: (route) => ({ jobid: route.params.jobid }),
-    //   },
-    // ],
+    children: [
+      {
+        path: "",
+        component: () => import("pages/IndexPage.vue"),
+        props: (route) => ({ jobid: route.params.jobid }),
+      },
+    ],
     props: true,
   },
 

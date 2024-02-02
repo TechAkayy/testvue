@@ -21,20 +21,14 @@
       <q-list>
         <q-item-label header> Links </q-item-label>
 
-        <q-item
-          clickable
-          @click="
-            $refs.indexPageChild.showAddRoomModal();
-            closeLeftDrawer();
-          "
-        >
+        <q-item clickable @click="addRoom">
           <q-item-section avatar>
             <q-icon name="plan" />
           </q-item-section>
 
           <q-item-section>
             <q-item-label>Add Room</q-item-label>
-            <q-item-label caption>{{ caption }}</q-item-label>
+            <!-- <q-item-label caption>{{ caption }}</q-item-label> -->
           </q-item-section>
         </q-item>
 
@@ -47,17 +41,34 @@
     </q-drawer>
 
     <q-page-container>
-      <!-- <router-view /> -->
-      <IndexPage
-        :jobid="jobid"
-        @add-room="showAddRoomModal"
-        ref="indexPageChild"
-      />
+      <router-view />
     </q-page-container>
   </q-layout>
 </template>
 
-<script>
+<script setup>
+import { ref } from "vue";
+import { useRoom } from "@/composables/room.js";
+
+const { showAddRoomModal } = useRoom();
+
+const leftDrawerOpen = ref(false);
+
+const toggleLeftDrawer = () => {
+  leftDrawerOpen.value = !leftDrawerOpen.value;
+};
+
+const closeLeftDrawer = () => {
+  leftDrawerOpen.value = false;
+};
+
+const addRoom = () => {
+  showAddRoomModal.value = true;
+  closeLeftDrawer();
+};
+</script>
+
+<!-- <script>
 import { defineComponent, ref } from "vue";
 import IndexPage from "components/IndexPage.vue";
 
@@ -86,4 +97,4 @@ export default defineComponent({
     };
   },
 });
-</script>
+</script> -->
