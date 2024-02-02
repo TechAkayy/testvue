@@ -9,6 +9,7 @@
 // https://v2.quasar.dev/quasar-cli-vite/quasar-config-js
 
 const { configure } = require("quasar/wrappers");
+const path = require("node:path");
 
 module.exports = configure(function (/* ctx */) {
   return {
@@ -72,9 +73,34 @@ module.exports = configure(function (/* ctx */) {
       // extendViteConf (viteConf) {},
       // viteVuePluginOptions: {},
 
-      // vitePlugins: [
-      //   [ 'package-name', { ..options.. } ]
-      // ]
+      vitePlugins: [
+        [
+          require("@pinegrow/vite-plugin").liveDesigner,
+          {
+            quasar: {
+              /* Please ensure that you update the filenames and paths to accurately match those used in your project. */
+              configPath: "quasar.config.js",
+              // themePath: false, // Set to false so that Design Panel is not used
+              // restartOnConfigUpdate: true,
+              restartOnThemeUpdate: true,
+            },
+            devServerUrls: {
+              /* Please ensure that you update this URL with the actual URL of your app-server. */
+              local: "http://localhost:8888/10", // App-server URL
+            },
+            //... existing config
+          },
+        ],
+      ],
+      alias: {
+        /* Must be either an object, or an array of { find, replacement, customResolver } pairs. */
+        /* Refer to: https://vitejs.dev/config/shared-options.html#resolve-alias */
+        /* Please ensure that you update the filenames and paths to accurately match those used in your project. */
+
+        "@": path.join(__dirname, "./src"),
+        "~": path.join(__dirname, "./src"),
+        "~~": path.join(__dirname, "./"),
+      },
     },
 
     // Full list of options: https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#devServer
